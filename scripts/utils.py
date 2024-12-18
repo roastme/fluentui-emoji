@@ -1,5 +1,3 @@
-# utils.py
-
 import csv
 from pathlib import Path
 
@@ -17,6 +15,9 @@ groups = [
     'Travel & Places',
     'Activities',
     'Flags',
-    ]
+]
 
 styles = ["3D", "Color", "Flat", "High Contrast"]
+
+def get_popular():
+    return
