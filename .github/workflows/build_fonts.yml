@@ -29,28 +29,13 @@ jobs:
           python -m pip install -U pip
           python -m pip install -U fonttools[ufo,woff]
           python -m pip install git+https://github.com/prasannagunuru/nanoemoji.git@PrasannaG/rules_into_feature_file
-      - name: build Color font
-        run: |
-          python scripts/copy_assets.py assets --style="Color" --popular=20
-          nanoemoji --color_format="glyf_colr_1" --output_file="font_color.ttf" --width=0 --noclip_to_viewbox --family="Emoji Color" svgs/*.svg
-          mv build/font_color.otf .
-          rm -rf svgs
-          rm -rf build
       - name: build Flat font
         run: |
-          python scripts/copy_assets.py assets --style="Flat" --popular=20
+          python scripts/copy_assets.py assets --style="Flat"
           nanoemoji --color_format="glyf_colr_0" --output_file="font_flat.ttf" --width=0 --noclip_to_viewbox --family="Emoji Flat" svgs/*.svg
           mv build/font_flat.otf .
           rm -rf svgs
           rm -rf build
-      - name: build High Contrast font
-        run: |
-          python scripts/copy_assets.py assets --style="High Contrast" --popular=20
-          nanoemoji --color_format="glyf" --output_file="font_hc.ttf" --width=0 --noclip_to_viewbox --family="Emoji High Contrast" svgs/*.svg
-          mv build/font_hc.otf .
-          rm -rf svgs
-          rm -rf build
-      
       - name: attach fonts as build artifacts
         uses: actions/upload-artifact@v3
         with:
