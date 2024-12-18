@@ -89,11 +89,6 @@ def main():
 
     detect_folders_without_metadata(opts.assets)
 
-    if bool(opts.popular):
-        opts.popular = get_popular(opts.popular)
-    elif opts.group == []:
-        opts.group = groups
-
     if not opts.svgs:
         opts.svgs = opts.assets.parent / "svgs"
 
