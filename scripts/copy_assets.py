@@ -1,4 +1,3 @@
-
 # copy_assets.py
 
 """
@@ -12,7 +11,7 @@ from pathlib import Path
 import shutil
 import os
 
-from utils import groups, styles, get_popular
+from utils import groups, styles
 
 fp = {
     "1f3fb": "Light",
@@ -82,12 +81,13 @@ def main():
                      action='append',
                      default=[],
                      )
-    mxg.add_argument("--popular",
-                     type=int)
-    
+
     opts = ap.parse_args()
 
     detect_folders_without_metadata(opts.assets)
+
+    if opts.group == []:
+        opts.group = groups
 
     if not opts.svgs:
         opts.svgs = opts.assets.parent / "svgs"
@@ -122,7 +122,6 @@ def get_asset_path(parent, style, fps=None):
     else:
         return parent / style / fn
 
-
 def pico_unsupported(svg_path):
     with open(svg_path) as f:
         s = f.read()
@@ -136,18 +135,14 @@ def copy_file(src, dst):
     if os.path.exists(dst):
         print((f"--> Error: {dst.name} (already exists)"))
         return
-    
+
     shutil.copyfile(src, dst)
 
 def move_files(metadata_path, opts):
     with open(metadata_path) as mf:
         metadata = json.load(mf)
 
-    if opts.popular:
-        if metadata.get('cldr') not in opts.popular:
-            print(f"--> Skipping {metadata.get('cldr')} (not popular enough)")
-            return
-    elif metadata.get('group') not in opts.group:
+    if metadata.get('group') not in opts.group:
         print(f"--> Skipping {metadata.get('group')} (not in group)")
         return
 
@@ -206,7 +201,6 @@ def move_files(metadata_path, opts):
             copy_file(src, dst)
         else:
             print(f"--> Missing {src} (unicode metadata exists, but missing file))")
-
 
 if __name__ == '__main__':
     main()
