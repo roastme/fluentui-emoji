@@ -16,8 +16,8 @@
 # docs/  docs@example.com
 
 #### Build folders
-/.github/workflows @microsoft/fluent-system-icons
+#/.github/workflows @microsoft/fluent-system-icons
 
 #### Meta and License stuff
-/LICENSE @microsoft/fluent-system-icons
-/.github/CODEOWNERS @microsoft/fluent-system-icons
+#/LICENSE @microsoft/fluent-system-icons
+#/.github/CODEOWNERS @microsoft/fluent-system-icons
